@@ -1,0 +1,756 @@
+---
+title: 'Tutorial: Day 1'
+author: "Dr Stefano Coretta"
+date: "2022-11-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+## R Markdown
+
+This is an **R Markdown** document (`.Rmd`).
+
+**Markdown** is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. An R Markdown document is a file that combines text (formatted using Markdown) and R code (written inside code chunks, which are delimited by three back-ticks "```").
+
+You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+If you want to know more about using R Markdown, you can check <http://rmarkdown.rstudio.com> later.
+
+## R basics
+
+### R as a calculator
+
+Write the following in the `Console`, then press `ENTER`: `1 + 2`.
+
+Fantastic! You should see that the answer to the addition has been printed in the `Console`.
+
+Now, try running the same code again, but this time in the **code chunk** below. There are several ways you can run code in a code chunk: one is to click on the green triangle sign in the top right corner of the code chunk.
+
+Alternatively, you can also simply place the text cursor inside the code chunk in the line you want to run and hit `CTRL/CMD + ENTER` on your keyboard to run that line of code.
+
+```{r}
+1 + 2
+```
+
+You did it!
+
+Now, try some more operations. Feel free to add your own to the mix!
+
+```{r}
+67 - 13
+2 * 4
+268 / 43
+```
+
+You can also chain multiple operations.
+
+```{r}
+6 + 4 - 1 + 2
+4 * 2 + 3 * 2
+```
+
+### Forget-me-not: variables
+
+Most times, we want to store a certain value so that we can use it again later.
+
+We can achieve this by creating **variables**. A variable holds one or more values and it's stored in the computer memory for later use.
+
+You can create a variable by using the assignment operator `<-`.
+
+```{r}
+# Assign the value 156 to the variable my_num
+my_num <- 156
+
+# Oh, btw... These are comments, i.e. lines of code starting with a #.
+# Comments are skipped by R.
+```
+
+Check the list of variables in the `Environment` tab of the top-right panel of RStudio. You should see the `my_num` variable and its value there.
+
+Now, you can just call it back when you need it!
+
+```{r}
+my_num
+```
+
+Let's try some operations.
+
+```{r}
+income <- 1200
+expenses <- 500
+income - expenses
+```
+
+See? You can use operations with variables too!
+
+And you can also go all the way with variables.
+
+```{r}
+savings <- income - expenses
+```
+
+And check the value...
+
+```{r}
+savings
+```
+
+
+Variables can hold more than one item.
+
+Just use the combine `c()` function to create a **vector** containing multiple values. A vector is a variable containing values of the same type.
+
+The following are all numeric vectors.
+
+```{r}
+one_i <- 6
+# Vector with 2 values
+two_i <- c(6, 8)
+# Vector with 3 values
+three_i <- c(6, 8, 42)
+```
+
+Check the list of variables in the `Environment` tab. You will see now that before the values of `two_i` and `three_i` you get the vector type `num` for numeric.
+
+Note the following are the same:
+
+```{r}
+one_i <- 6
+one_i
+one_ii <- c(6)
+one_ii
+```
+
+### R can't function without... functions
+
+**Functions** are operations performed on one or more *arguments*.
+
+A function in R has the form `function()` where:
+
+- `function` is the name of the function, like `sum`.
+- `()` are round parentheses, inside of which you write arguments, separated by commas.
+
+```{r}
+sum(3, 5)
+```
+
+The `sum()` function sums the number listed as arguments. Above, the arguments are `3` and `5`.
+
+And of course arguments can be vectors!
+
+```{r}
+my_nums <- c(3, 5, 7)
+
+sum(my_nums)
+mean(my_nums)
+```
+
+### Not just numbers
+
+Variables work not only with numbers. They can also store **strings**. A string is basically a set of characters (a word, a sentence, a full text).
+
+In R, strings have to be **quoted** using double quotes `""`. 
+
+Change the following strings to your name and surname
+
+```{r}
+name <- "Stefano"
+surname <- "Coretta"
+
+name
+```
+
+Strings can be used as arguments in functions, like numbers can.
+
+```{r}
+cat("My name is", name, surname)
+```
+
+Remember that you can reuse the same variable name to override the variable value.
+
+```{r}
+name <- "Raj"
+
+cat("My name is", name, surname)
+```
+
+You can combine multiple strings into a **character vector**, using `c()`.
+
+```{r}
+fruit <- c("apple", "oranges", "bananas")
+fruit
+```
+
+Check the Environment tab. Character vectors have `chr` before the values.
+
+## Plotting basics
+
+Plotting data in R is easy once you understand the basics.
+
+### Graphic systems
+
+In R, you can create plots using different systems.
+
+- Base R.
+- lattice.
+- ggplot2.
+- more...
+
+In this workshop you will learn how to use the ggplot2 system, but before we dive in, let's have a look at the base R system too.
+
+### Base R plotting function
+
+Let's create two vectors, `x` and `y` and plot them.
+
+```{r scatter}
+x <- 1:10
+y <- x^3
+
+plot(x, y)
+```
+
+Easy!
+
+Now let's add a few more things.
+
+```{r line}
+plot(x, y, type = "l", col = "purple", lwd = 3, lty = "dashed")
+```
+
+With plots as simple as this one, the base R plotting system is sufficient, but to create more complex plots (which is virtually always the case), base R gets incredibly complicated.
+
+Learn how to use ggplot2 in the following sections.
+
+### Packages to the rescue
+
+Before talking about ggplot2, we need to understand a few more concepts about how R works.
+
+When you install R, a **library** of packages is also installed. **Packages** are like plug-ins, they provide R with extra functionality.
+The default **R library** contains all of the base R packages (including the packages for base R plotting).
+
+You can install extra packages in the R library in two ways:
+
+1. You can use the `install.packages()` function.
+2. Or you can go the Packages tab in the bottom-right panel of RStudio and click on `Install`.
+
+Go ahead and try to install a package using the second method. Install the `fortunes` package. After installing you will see that the package fortunes is listed in the Packages tab.
+
+**You need to install a package ONLY ONCE!** Once installed, it's there for ever, saved in the R project library.
+
+
+Now, to use a package you need to **attach** the package with the `library()` function.
+**You need to attach the package you want to use every time you start R and/or open RStudio.**
+
+Let's attach the fortunes package.
+
+```{r fortunes}
+library(fortunes)
+```
+
+
+Now you can use the functions provided by the attached package.
+
+```{r fortune}
+fortune()
+```
+
+To learn what a function does, you can check its documentation by typing the function name preceded by a `?` question mark. Type `?function` in the Console and hit ENTER to see the function documentation.
+
+### Using data
+
+Of course, the most important thing we need for plotting data is... DATA!
+
+You will learn how to import data from spreadsheet-like files during the second day of the mini-course. For now, you will use ready-made data, provided to you by two R packages: **sqmf** and **glottologR**.
+
+Note that these are not available via CRAN (which is a repository of packages, used when installing packages with the methods mentioned above). That is why I asked you to install these using a slightly different method.
+
+Now that they are installed, you can attach them normally (never mind the messages you get when attaching the packages):
+
+```{r data-pkgs}
+library(sqmf)
+library(glottologR)
+```
+
+Now we can attach the data from these packages. Let's start with the `glot_aes` data from glottologR.
+
+```{r glot-aes}
+data("glot_aes")
+```
+
+The data is now listed in the Environment tab, under Data (if it is in Values and next to it you see "Promise" you first need to click on the name in the list).
+
+To view the data, click on the `glot_aes` name in the Enviroment tab.
+A spreadsheet-like view of the data will open in a new tab in the top-left panel of RStudio.
+
+You can also glance at the data like so:
+
+```{r glot-aes-glance}
+glot_aes
+```
+
+Now let's attach the `polite` data set from the sqmf package.
+Fill in the code yourself (replace `...`):
+
+```{r data}
+data(...)
+```
+
+Now view the polite data.
+
+### Tidyverse packages
+
+The package [ggplot2](https://ggplot2.tidyverse.org), which is part of the tidyverse packages, provides users with a consistent set of functions to easily create beautiful plots. 
+Let's attach all the tidyverse packages, among which there is also ggplot2.
+
+```{r tidy-attach}
+library(tidyverse)
+```
+
+Now the functions from ggplot2 are available and we can use them to plot the 
+
+### A basic plot
+
+These are the minimum constituents of a ggplot.
+
+- The `data`: you have to specify the data frame with the data you want to plot.
+
+- The `mapping`: the mapping tells ggplot how to map specific columns in the data to parts of the plot like the axes or groupings within the data. These parts are called *aesthetics*, or `aes` for short.
+
+You can specify the data and mapping with the `data` and `mapping` arguments of the `ggplot()` function.
+
+Note that the `mapping` argument is always specified with `aes()`.
+
+In the following bare plot, we are just mapping the mean f0 (`f0`) to the *x*-axis and the H2-H1 difference to the *y*-axis, from the `polite` data frame.
+
+```{r bare-plot}
+ggplot(
+  data = polite,
+  mapping = aes(x = f0mn, y = H1H2)
+)
+```
+
+Not much to see here: just two axes!
+
+### Let's add geometries
+
+Nice, but we are missing the most important part: showing the data!
+
+Data is represented with **geometries**, or `geom`s for short.
+`geom`s are added to the base ggplot with functions whose names all start with `geom_`.
+
+For this plot, you want to use `geom_point()`.
+This geom simply adds point to the plot based on the data in the `polite` data frame.
+
+Add the geom to the following code and run it (replace `...` with `geom_point()` and run the code).
+
+```{r first-plot}
+ggplot(
+  data = polite,
+  mapping = aes(x = f0mn, y = H1H2)
+) +
+  ...
+```
+
+This type of plot, with two continuous axes and data represented by points, is called a **scatter plot**.
+
+### Function arguments
+
+Note that the `data` and `mapping` arguments don't have to be named explicitly (with `data =` and `mapping =`) in the `ggplot()` function.
+
+```{r named-arguments-1}
+ggplot(
+  polite,
+  aes(x = f0mn, y = H1H2)
+) +
+  geom_point()
+```
+
+In fact, you can also leave out `x =` and `y =`.
+
+```{r named-arguments-2}
+ggplot(
+  polite,
+  aes(f0mn, H1H2)
+) +
+  geom_point()
+```
+
+This works because the `data` and `mapping` arguments of `ggplot()` and the `x` and `y` arguments of `aes()` are obligatory and by default they are specified in that order.
+
+Try running `?ggplot` and `?aes` in the Console to see the arguments of the function and the order they appear in.
+
+Which of the following lines of code will produce the same plot as the one above? Do you understand why?
+
+1. `ggplot(polite, aes(H1H2, f0mn)) + geom_point()`
+2. `ggplot(polite, aes(y = H1H2, x = f0mn)) + geom_point()`
+3. `ggplot(polite, aes(y = f0mn, x = H1H2)) + geom_point()`
+
+
+## Bar charts
+
+Another common type of plot is the **bar chart**.
+
+**Bar charts are useful when you are counting things.**
+In the following example, we will be counting the number of languages by their endangerment status.
+
+### Do you understand me?
+
+There are thousands of languages in the world, but most of them are loosing speakers, and some that were spoken until a few decades ago are already no longer spoken.
+
+The endangerment status of a language in the `glot_aes` data is on a categorical scale from `not endangered` (languages with large populations of speakers) through `threatened`, `shifting` and `nearly extinct`, to `extinct` (languages that have no living speakers left).
+
+The `glot_aes` data frame contains the endangerment status for 7,845 languages from [Glottolog](https://glottolog.org).
+Here's again what it looks like (we have attached it above).
+
+```{r aes}
+glot_aes
+```
+
+The `AES` column specifies the Aggregated Endangerment Status of each language (note that the function `aes()` and the column `AES` happen to be named the same by chance! But there is no relation between them).
+
+### Create a bar chart
+
+To create a bar chart, add `geom_bar()` to the plot.
+
+You only need one axis, the *x* axis to be precise, because the *y*-axis will have the counts.
+
+```{r aes-bars}
+glot_aes %>%
+  ggplot(aes(x = AES)) +
+  ...
+```
+
+Note how the counting is done automatically.
+R looks in the `AES` column and counts how many times each value in the column occurs in the data frame.
+
+If you are baffled by that `%>%`, keep on reading.
+
+### What the pipe?!
+
+Wait, what is that thing, `%>%`?
+
+It's called a **pipe**. Think of a pipe as a teleporter.
+
+In the previous code chunk, instead of specifying the data frame *inside* `ggplot()`, we teleport it into `ggplot()` by using the pipe.
+
+So the following lines of code are equivalent.
+
+```{r aes-pipe}
+# Using the pipe
+glot_aes %>%
+  ggplot(aes(AES)) +
+  geom_bar()
+
+# Without the pipe
+glot_aes(
+  glot_aes, aes(AES)
+) +
+  geom_bar()
+```
+
+Don't worry too much if the concept is not clear yet.
+It should become clearer later.
+
+### Stacked bar charts
+
+A special type of bar charts are the so-called **stacked bar charts**.
+These are bar charts where each bar contains a "stack" of shorter bars, each indicating the counts of some sub-groups.
+
+To create a stacked bar chart, you just need to add a new aesthetic mapping: `fill`.
+The `fill` aesthetic let's you fill bars or areas with different colours depending on the values of a specified column.
+
+Let's make a plot on language endangerment by macroarea.
+
+Complete the following code by specifying that `fill` should be based on `AES`.
+
+```{r aes-stacked}
+ggplot(
+  data = glot_aes,
+  mapping = aes(x = Macroarea, ...)
+) +
+  geom_bar()
+```
+
+Need a hint? `aes(x = Macroarea, fill = ...)`
+
+What if we want to move the colour legend to the bottom of the plot?
+
+Check out the documentation of `theme` by typing `?theme` in the RStudio Console and press ENTER.
+Search for the word `position`.
+
+Which of the following moves the legend to the bottom of the plot?
+
+1. `legend("bottom")`
+2. `theme(legend.position = "bottom")`
+3. `theme(legend.bottom)`
+
+Try it now!
+
+```{r aes-stacked-2}
+ggplot(
+  data = glot_aes,
+  # Replace ... with fill
+  mapping = aes(x = Macroarea, ...)
+) +
+  geom_bar() +
+  # Replace ... with the code for placing the legend at the bottom
+  ...
+```
+
+
+## Legends and labels
+
+### Plot titles and labels
+
+The `labs()` function allows you to set the plot title, subtitle, axis labels and more.
+
+Since these are strings (i.e. characters), they must be quoted with `"`.
+
+```{r aes-title}
+ggplot(
+  data = glot_aes,
+  mapping = aes(x = Macroarea, fill = AES)
+) +
+  geom_bar() +
+  labs(
+    title = "Number of languages by macro-area and\nAggregated Endangerement Status"
+  )
+```
+
+NOTE: We use `\n` to split the title into two lines, so that it fits the plot. `\n` simply means "**n**ew line".
+
+### Axis labels
+
+To change the axis labels, you specify a string for `x` and `y`.
+
+I have changed the `x` label here below.
+Go ahead and change `y` to `"Number of languages"`.
+
+```{r aes-labs}
+ggplot(
+  data = glot_aes,
+  mapping = aes(x = Macroarea, fill = AES)
+) +
+  geom_bar() +
+  labs(
+    # We use \n to split the title into two lines. \n means "new line"
+    title = "Number of languages by macro-area and\nAggregated Endangerement Status",
+    x = "Language macro-area",
+    ...
+  )
+```
+
+
+
+
+
+
+
+## Density and violin plots
+
+**Density plots show the distribution of the values of a continuous variable.**
+
+A continuous variable is a numeric variable that take as values any number between any two numbers:
+
+- Temperature: 1°, 2°, 1.7°, 1.75°, 1.75435°, ...
+- Reaction Times: 365 ms, 366 ms, 365.2 ms, 365.2134 ms, ...
+- Formant values: 1200 Hz, 1202 Hz, 1200.109 Hz, 1200.9345 Hz, 1201.01 Hz.
+- Can you think of more?
+
+Let's attach another data frame, from the sqmf package.
+
+```{r mald-attach}
+data("mald_1_1")
+```
+
+The `mald_1_1` data contains data from the *MAssive Lexical Decision* task study (to know more about data contained in packages, you can check their documentation too! `?mald_1_1`.)
+
+Have a look at the data by viewing it as you did with the other data frames.
+
+Let's focus on the Reaction Times (`RT`) values.
+
+### Reaction times
+
+To plot the density of a continuous variable, you can use the `density` geometry.
+
+Fill in the following code to create a density plot.
+
+```{r mald-dens}
+mald_1_1 %>%
+  ggplot(aes(RT)) +
+  ...
+```
+
+Remember that all geometries start with `geom_`.
+
+A density curve basically shows how the values in the continuous variable are distributed along the range of values that the variable can take.
+
+The more values are concentrated in a particular point of the range, the higher will the density curve be at that point.
+
+Can you tell by looking at the plot above which values (approximately) are the most frequent in the `RT` column?
+
+### Make things cozy with a rug
+
+The density curve shows you a smoothed representation of the data distribution, but you might also want to see the raw data.
+
+You can do so by adding the `rug` geometry.
+
+```{r mald-dens-rug}
+mald_1_1 %>%
+  ggplot(aes(RT)) +
+  geom_density() +
+  ...
+```
+
+
+### Violin plots
+
+An efficient way of showing the distribution of continuous variables depending on categorical groups (like `attitude` in the `polite` data) are the so-called **violin plots**.
+
+Go ahead and run the following code.
+
+```{r pol-viol}
+polite %>%
+  ggplot(aes(attitude, f0mn)) +
+  geom_violin()
+```
+
+They are called violin plots because they look like (wierdly shaped) violins!
+
+
+### Lay over the raw data
+
+You can lay over raw data on top of the violins.
+
+To do so, you can use the `jitter` geometry.
+Fill the following code chunk and run it.
+
+```{r pol-viol-jit}
+polite %>%
+  ggplot(aes(attitude, f0mn)) +
+  geom_violin() +
+  ...
+```
+
+That doesn't look great right?
+The points are spread too widely.
+
+We can fix that by specifying the argument `width` in the jitter geometry something smaller than `0.5`.
+Try a few values until you think it looks better.
+
+```{r pol-viol-jit-2}
+polite %>%
+  ggplot(aes(attitude, f0mn)) +
+  geom_violin() +
+  ...
+```
+
+
+Need a hint? `geom_jitter(width = ...)`
+
+Note that the order between the violin and jitter geoms is important.
+If you add the jitter geometry before the violin geometry, the violins will just cover up the jittered points.
+
+
+### Let's add some colour
+
+Let's **fill** the violins with colour.
+For now, just colour the violins depending on `attitude`.
+
+```{r pol-colour}
+polite %>%
+  ggplot(aes(attitude, f0mn, ...)) +
+  geom_violin()
+```
+
+Here's a hint: `fill = ...`
+
+Not bad!
+But maybe we can improve by making the fill a bit transparent?
+
+You can achieve that with the `alpha` argument in `geom_violin()`, which takes a number between 0 (completely transparent) and 1 (completely opaque).
+
+Add it to the code above to make the fill transparent.
+Try different values until you are satisfied with the output.
+
+
+### Separate the data by gender
+
+In the previous section we have filled the violins with colours dependingn on `attitude`.
+This helps making the plot somewhat more appealing, but colour doesn't add information to the plot in this instance: attitude is already specified along the *x*-axis, so filling colour by attitude is a bit redundant.
+
+Instead, we can use the fill argument to separate the data into further groups based on other variables in the data.
+
+Go ahead and separate the data by `gender` using the `fill` argument.
+
+```{r pol-colour-gen}
+polite %>%
+  ggplot(aes(attitude, f0mn, ...)) +
+  geom_violin()
+```
+
+
+
+## Faceting and panels
+
+Sometimes we might want to separate the data further into separate panels.
+
+We can achieve that easily using **faceting**.
+
+### Attitudes again
+
+Let's recreate the attitude plot from the previous section.
+
+```{r pol-viol-2}
+polite %>%
+  ggplot(aes(attitude, f0mn, fill = gender)) +
+  geom_violin()
+```
+
+### Does being a music student matter?
+
+That looks great, but we want to know if being a music student has an effect on how attitude affects mean f0.
+
+In the plot above, the aesthetics mappings are the following:
+
+- `attitude` on the *x*-axis.
+- `f0mn` on the *y*-axis.
+- `gender` as fill in the violin geometry.
+
+How can we separate data further depending on whether the participant is a music student or not?
+
+We can create panels using `facet_grid()`.
+This function takes lists of variables to specify panels in rows and/or columns.
+
+The syntax is a bit strange.
+Check the documentation with `?facet_grid()` to see how it works and then complete the code below and run it to produce a plot with two column panels.
+
+
+```{r pol-facet}
+polite %>%
+  ggplot(aes(attitude, f0mn, fill = gender)) +
+  geom_violin() +
+  facet_grid(...)
+```
+
+
+Hint: `facet_grid(cols = ...)`.
+
+## That's all for today!
+
+Congratulations!
+
+You made it to the bottom of this tutorial.
+
+This was quite intense but you went from 0 to plotting hero!!!
+
+You deserve a treat (sorry, these are not included with the workshop! :( ).
+
+In the second day of the workshop you will learn how to read data from files and how to process the data to make it into a format that is easy to work with.
