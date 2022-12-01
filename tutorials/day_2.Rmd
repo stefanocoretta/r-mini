@@ -519,3 +519,12 @@ That's a lot for a 3-hour workshop, so very much congratulations to you to have 
 
 Here below I list some further resources you can use to deepen your knowledge of R.
 
+- Data Analysis at LEL website: https://uoeling.github.io
+
+- *R for Data Science* online book: https://r4ds.had.co.nz
+
+- *Statistics for Linguists: An Introduction using R* by Bodo Winter (available online through the library).
+
+- Forum to ask R-elated questions: https://stackoverflow.com/questions/tagged/r
+
+- Book an appointment with me for help with anything quantitative data analysis! https://uoeling.github.io/support/
