@@ -449,7 +449,7 @@ glot_aes %>%
   geom_bar()
 
 # Without the pipe
-glot_aes(
+ggplot(
   glot_aes, aes(AES)
 ) +
   geom_bar()

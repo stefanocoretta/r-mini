@@ -389,13 +389,13 @@ Try and fill the `...` with the right code in the following code chunk so that t
 **HINT:** Remember, to check if two things are **equal** you need the `==` operator.
 
 ```{r if-else-acc, exercise=TRUE}
-shallow <- shallow %>%
+shallow_filt <- shallow %>%
   mutate(
     # Replace ... with the ifelse() function 
     accuracy = ...
   )
 
-shallow
+shallow_filt
 ```
 
 ### Count occurences
